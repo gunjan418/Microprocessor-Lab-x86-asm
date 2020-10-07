@@ -1,0 +1,123 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+noname.exe -- emu8086 assembler version: 4.08  
+ 
+[ 04-Jun-20  --  1:08:21 AM ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       ;#################################################################################################################################
+[   2]        :                                       ;## Title:  program for water level controler                                                                                   ##
+[   3]        :                                       ;## Author: GunjanShuvro                                                                                                        ##
+[   4]        :                                       ;## Date:   25 May 2020                                                                                                         ##
+[   5]        :                                       ;## Repo:   https://github.com/dronegj                                                                                          ##
+[   6]        :                                       ;#################################################################################################################################
+[   7]        :                                       
+[   8]        :                                       DATA SEGMENT
+[   9]    0000: 0A 0D 54 68 65 20 77 61 74 65 72 20   msg1 db 10,13,"The water level is: $"
+                6C 65 76 65 6C 20 69 73 3A 20 24    
+[  10]    0017: 0A 0D 53 77 69 74 63 68 20 4F 4E 20   msg2 db 10,13,"Switch ON motor. $"
+                6D 6F 74 6F 72 2E 20 24             
+[  11]    002B: 0A 0D 53 77 69 74 63 68 20 4F 46 46   msg3 db 10,13,"Switch OFF motor. $"
+                20 6D 6F 74 6F 72 2E 20 24          
+[  12]    0040: 0A 0D 57 61 74 65 72 20 6F 76 65 72   msg4 db 10,13,"Water overflow! $"
+                66 6C 6F 77 21 20 24                
+[  13]        :                                       DATA ENDS
+[  14]        :                                       
+[  15]        :                                       CODE SEGMENT
+[  16]        :                                       ASSUME DS:DATA,CS:CODE
+[  17]        :                                       
+[  18]    0060: B8 00 00                              START: mov AX,@data ;intialize data segment
+[  19]    0063: 8E D8                                 mov DS,AX
+[  20]        :                                       
+[  21]    0065: B1 01                                 mov CL,1H
+[  22]        :                                       
+[  23]    0067: BA 00 00                              L1:    lea DX,msg1  ;displaying water level message
+[  24]    006A: B4 09                                 mov AH,9H
+[  25]    006C: CD 21                                 int 21H
+[  26]        :                                       
+[  27]    006E: 80 C1 30                              add CL,30H   ;ASCII adjust before displaying
+[  28]    0071: 8A D1                                 mov DL,CL
+[  29]    0073: B4 02                                 mov AH,2H    ;display
+[  30]    0075: CD 21                                 int 21H
+[  31]    0077: 80 E9 30                              sub CL,30H   ;ASCII adjust after displaying
+[  32]        :                                       
+[  33]    007A: 80 F9 08                              cmp CL,8H    ;switch off motor
+[  34]    007D: 74 17                                 je off       ;jump to off if = 8
+[  35]        :                                       
+[  36]    007F: 80 F9 01                              cmp CL,1H    ;switch on motor
+[  37]    0082: 74 09                                 je on        ;jump to on if = 1
+[  38]        :                                       
+[  39]    0084: FE C1                                 back:  inc CL       ;increase water level by 1
+[  40]    0086: 80 F9 08                              cmp CL,8H    ;check if water level is overflowing
+[  41]    0089: 7E DC                                 jle l1
+[  42]        :                                       
+[  43]    008B: EB 19                                 jmp exit
+[  44]        :                                       
+[  45]    008D: BA 17 00                              on:    lea DX,msg2
+[  46]    0090: B4 09                                 mov AH,9h
+[  47]    0092: CD 21                                 int 21H
+[  48]    0094: EB EE                                 jmp back
+[  49]        :                                       
+[  50]    0096: BA 2B 00                              off:   lea DX,msg3
+[  51]    0099: B4 09                                 mov AH,9h
+[  52]    009B: CD 21                                 int 21H
+[  53]    009D: BA 40 00                              lea DX,msg4  ;displaying overflow
+[  54]    00A0: B4 09                                 mov AH,9H
+[  55]    00A2: CD 21                                 int 21H
+[  56]    00A4: EB DE                                 jmp back
+[  57]        :                                       
+[  58]        :                                       
+[  59]    00A6: B4 4C                                 exit:  mov AH,4CH
+[  60]    00A8: CD 21                                 int 21H
+[  61]        :                                       
+[  62]        :                                       CODE ENDS
+[  63]        :                                       END START
+[  64]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: AA      -   bytes on last page (l.byte)
+0003: 00      -   bytes on last page (h.byte)
+0004: 02      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 00      -   SP - stack pointer (h.byte)
+0012: 2F      -   check sum (l.byte)
+0013: 60      -   check sum (h.byte)
+0014: 00      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 06      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 01      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 06      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================

@@ -1,0 +1,20 @@
+< THE SYMBOL TABLE >  noname.exe  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+DATA                     	00000     	-5        	SEGMENT   	(ITSELF)  
+MSG1                     	00000     	1         	VAR       	DATA      
+MSG2                     	00017     	1         	VAR       	DATA      
+MSG3                     	0002B     	1         	VAR       	DATA      
+MSG4                     	00040     	1         	VAR       	DATA      
+CODE                     	00006     	-5        	SEGMENT   	(ITSELF)  
+START                    	00000     	-1        	LABEL     	CODE      
+L1                       	00007     	-1        	LABEL     	CODE      
+BACK                     	00024     	-1        	LABEL     	CODE      
+ON                       	0002D     	-1        	LABEL     	CODE      
+OFF                      	00036     	-1        	LABEL     	CODE      
+EXIT                     	00046     	-1        	LABEL     	CODE      
+===================================================================================================
+[ 04-Jun-20  --  1:08:21 AM ] 
+< END >
+ 

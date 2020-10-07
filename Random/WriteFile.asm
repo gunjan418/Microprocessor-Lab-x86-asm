@@ -1,6 +1,6 @@
 data segment
-    fname db "DATFILE.txt", 0
-    fdata db "OJSORFHOIEWIFJOUHWEOFIJWOEFHSNOIUWFOEYWUEYFGSWNFGYWU$"
+    fname db "DATAFILE.txt", 0
+    fdata db "HiThisIsTheDataFileThatIsGonnaBeWrittenOnTheFile$"
     fhand dw ?
     data ends
 
